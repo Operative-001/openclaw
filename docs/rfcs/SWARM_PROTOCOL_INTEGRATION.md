@@ -259,7 +259,7 @@ def should_enable_swarm():
 ## References
 
 - [SWARM Protocol Documentation](https://swarmprotocol.org)
-- [OpenClaw Gateway Architecture](../gateway/)
+- [OpenClaw Gateway Architecture](/gateway/)
 - [MCP Specification](https://modelcontextprotocol.io)
 
 ---
