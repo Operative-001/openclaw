@@ -24,10 +24,11 @@ function coerceNumberString(value: string, integer: boolean): number | undefined
   if (integer && !Number.isInteger(parsed)) {
     return value;
   }
-  // Check for precision loss: if round-tripping through Number loses data,
-  // keep the original string. This protects Discord Snowflakes and other
-  // large numeric strings from silent corruption.
-  if (String(parsed) !== trimmed) {
+  // Check for precision loss: large integers (>2^53-1) lose precision when
+  // converted to Number. Keep original string for unsafe integers to protect
+  // Discord Snowflakes and other 64-bit IDs from silent corruption.
+  // Note: floats like "1.0" → 1 are fine since they don't lose information.
+  if (Number.isInteger(parsed) && !Number.isSafeInteger(parsed)) {
     return value;
   }
   return parsed;
